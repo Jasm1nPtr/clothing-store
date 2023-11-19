@@ -1,4 +1,5 @@
 
+import 'package:clothing_store_app/app/modules/register/views/login_view.dart';
 import 'package:clothing_store_app/app/modules/register/views/register_view.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -6,6 +7,7 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_rx/src/rx_types/rx_types.dart';
 import 'package:get/get_state_manager/src/simple/get_controllers.dart';
+import '../../../routes/app_pages.dart';
 
 class AuthController extends GetxController {
   final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -51,7 +53,35 @@ class AuthController extends GetxController {
         isLoading.value = false;
       }
     }
+
+    Future<void> Logout (BuildContext context) async {
+    return showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text("Konfirmasi"),
+          content: Text("Apakah Anda yakin ingin keluar?"),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: Text("Batal"),
+            ),
+            TextButton(
+              onPressed: () { 
+                Get.find<AuthController>().Logout(context);
+                Navigator.of(context).pop();
+                Get.offNamed(Routes.LOGIN);
+              },
+              child: Text("Keluar"),
+            ),
+          ],
+        );
+      },
+    );
   }
+}
 
 
  
