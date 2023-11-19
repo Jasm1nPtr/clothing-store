@@ -11,6 +11,7 @@ class AuthController extends GetxController {
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
   RxBool isLoading = false.obs;
+  RxBool isLoggedIn = false.obs;
 
   Future<void> registerUser(String email, String password) async {
     try {
@@ -38,6 +39,9 @@ class AuthController extends GetxController {
         email: email,
         password: password,
       );
+
+      isLoggedIn.value = true;
+
       Get.snackbar('Success', 'Login successful',
         backgroundColor: Colors.green);
       } catch (error) {

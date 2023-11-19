@@ -1,5 +1,4 @@
 
-import 'package:clothing_store_app/app/modules/register/views/login_view.dart';
 import 'package:get/get.dart';
 import '../modules/product_api/views/product.dart';
 import '../modules/register/bindings/login_binding.dart';

@@ -1,17 +1,28 @@
+
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import '../../../routes/app_pages.dart';
+import '../controllers/AuthController.dart';
 
 class LoginView extends StatefulWidget {
  LoginView({Key? key}) : super(key: key);
   
   @override
-  State <LoginView> createState() => _LoginVIewState();
+  State <LoginView> createState() => _LoginViewState();
 }
 
-class _LoginVIewState extends State<LoginView> {
+class _LoginViewState extends State<LoginView> {
 
-  // text controller
-  final _emailController = TextEditingController();
-  final _passwordController = TextEditingController();
+  final AuthController _authController = Get.put(AuthController());
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+
+  @override
+  void dispose(){
+    _emailController.dispose();
+    _passwordController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +39,7 @@ class _LoginVIewState extends State<LoginView> {
                 Text(
                   'HELLO AGAIN',
                   style: TextStyle(
-                    fontSize: 52,
+                    fontSize: 30,
                     fontWeight: FontWeight.bold,
                     fontFamily: 'Roboto',
                     color: Colors.black
@@ -43,94 +54,109 @@ class _LoginVIewState extends State<LoginView> {
                     color: Colors.black
                   ),
                 ),
-                SizedBox(height: 50),
+                SizedBox(height: 30),
 
                 // EMAIL TEXFIELD
                 Padding(
-                  padding:EdgeInsets.all(25.0),
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color: Colors.grey[200],
-                      border: Border.all(color: Colors.white),
-                      borderRadius: BorderRadius.circular(12),
+                padding: EdgeInsets.symmetric(horizontal: 25.0),
+                child: TextField(
+                  controller: _emailController,
+                  decoration: InputDecoration(
+                    enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.white),
+                      borderRadius: BorderRadius.circular(12,)
                     ),
-                    child: Padding(
-                      padding: const EdgeInsets.only(left: 20.0),
-                      child: TextField(
-                        controller: _emailController,
-                        decoration: InputDecoration(
-                          border: InputBorder.none,
-                          hintText: 'Input Email',
-                        )
-                      ),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.orange),
+                      borderRadius: BorderRadius.circular(12)
                     ),
+                    hintText: 'Enter your email address',
+                    fillColor: Colors.grey[200],
+                    filled: true
                   ),
                 ),
-                SizedBox(height: 10),
+              ),
+              SizedBox(height: 20),
 
                 //PASSWORD TEXTFIELD
-                Padding(
-                  padding:EdgeInsets.all(25.0),
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color: Colors.grey[200],
-                      border: Border.all(color: Colors.white),
-                      borderRadius: BorderRadius.circular(12),
+              Padding(
+              padding: EdgeInsets.symmetric(horizontal: 25.0),
+              child: TextField(
+                controller: _passwordController,
+                  obscureText: true,
+                  decoration: InputDecoration(
+                    enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.white),
+                      borderRadius: BorderRadius.circular(12,)
                     ),
-                    child: Padding(
-                      padding: const EdgeInsets.only(left: 20.0),
-                      child: TextField(
-                        controller: _passwordController,
-                        obscureText: true,
-                        decoration: InputDecoration(
-                          border: InputBorder.none,
-                          hintText: 'Input Password',
-                        )
-                      ),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.orange),
+                      borderRadius: BorderRadius.circular(12)
                     ),
+                    hintText: 'Enter your password',
+                    fillColor: Colors.grey[200],
+                    filled: true
                   ),
                 ),
-                SizedBox(height: 25),
+              ),
 
                 // SIGN IN BUTTON
                 Padding(
-                  padding: const EdgeInsets.all(25.0),
+                  padding: EdgeInsets.all(25.0),
                   child: Container(
-                    padding: EdgeInsets.all(20),
-                    decoration: BoxDecoration(
-                      color: Colors.amber,
-                      borderRadius: BorderRadius.circular(12)
-                      ),
-                      child: Center(
-                        child: Text(
-                          'Sign In',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                            ),
+                    child : Obx (() {
+                      return ElevatedButton(
+                        onPressed: _authController.isLoading.value
+                          ? null
+                          : () {
+                          // Memanggil fungsi login
+                            _authController.loginUser(
+                            _emailController.text,
+                            _passwordController.text,
+                          );
+
+                          // Memeriksa apakah login berhasil
+                          if (_authController.isLoggedIn.value) {
+                          // Jika berhasil, arahkan ke halaman Homepage
+                          Get.offNamed(Routes.HOMEPAGE);
+                          }
+                        },
+                        style: ButtonStyle(
+                          backgroundColor: MaterialStateProperty.all<Color>(Colors.black), 
+                          minimumSize: MaterialStateProperty.all<Size>(Size(200.0, 50.0)), 
                         ),
-                    ),
-                  ),
+                      child: _authController.isLoading.value
+                        ? CircularProgressIndicator()
+                      : Text(
+                        'Login', 
+                        style: TextStyle(
+                          fontSize: 20
+                        ),
+                      ),
+                    );
+                  }
                 ),
-                SizedBox(height: 10),
+              ),
+            ),
+          SizedBox(height: 10),
 
                 // REGISTER 
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text(
-                      'Not a member?',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold
-                      ),
-                    ),
-                    Text(
+                    Text('Not a member?'),
+                      TextButton(
+                      onPressed: () {
+                      Get.offNamed(Routes.REGISTER);
+                    },
+                    child: Text(
                       ' Register Now',
                       style: TextStyle(
-                        color: Colors.blue,
+                        color: Colors.orange,
                         fontWeight: FontWeight.bold
                       ),
                     ),
+                  ),
                   ],
                 )
               ],

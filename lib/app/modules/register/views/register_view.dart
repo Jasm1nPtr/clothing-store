@@ -100,21 +100,6 @@ super.dispose();
                 ),
               ),
               SizedBox(height: 20),
-
-                // Container(
-                //         alignment: Alignment.centerRight,
-                //         margin: const EdgeInsets.only(top: 10),
-                //         child: const Text(
-                //           'Forgot Password?',
-                //           style: TextStyle(
-                //             fontSize: 16.0,
-                //             fontFamily: 'Roboto',
-                //             color: Color.fromARGB(255, 84, 81, 81),
-                //           ),
-                //         ),
-                //       ),
-                //     SizedBox(height: 19.0),
-
               Center(
                 child: Padding(
                   padding:EdgeInsets.symmetric(horizontal: 20.0),
@@ -228,7 +213,7 @@ super.dispose();
                   Text('Already Have An Account?'),
                   TextButton(
                     onPressed: () {
-                    Get.toNamed(Routes.LOGIN);
+                    Get.offNamed(Routes.LOGIN);
                   },
                     child: Text(
                       'Log In',
