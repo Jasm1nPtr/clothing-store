@@ -109,11 +109,12 @@ class _LoginViewState extends State<LoginView> {
                         onPressed: _authController.isLoading.value
                           ? null
                           : () {
+                            //  if (_emailController.text.isEmpty || _passwordController.text.isEmpty) {}
                           // Memanggil fungsi login
                             _authController.loginUser(
                             _emailController.text,
                             _passwordController.text,
-                          );
+                          ); 
 
                           // Memeriksa apakah login berhasil
                           if (_authController.isLoggedIn.value) {

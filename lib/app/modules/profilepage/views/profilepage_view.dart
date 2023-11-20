@@ -23,14 +23,28 @@ final AuthController _authController = Get.put(AuthController());
     Get.lazyPut(() => ProfilepageController());
 
     return Scaffold(
-      backgroundColor: Color(0xffdfe1e0),
       appBar: AppBar(
-        title: Text('Profile'),
+        elevation: 0,
+        backgroundColor: Colors.white,
+        leading: IconButton(
+          icon: Icon(
+          Icons.chevron_left,
+          color: Colors.black,
+          size: 30,
+        ),
+        onPressed: () { 
+        Get.toNamed(Routes.HOMEPAGE);    
+        },
+      ),
+        title: Text(
+          'Profile', 
+          style: TextStyle(color: Colors.black),
+          ),
         actions: [
           IconButton(
             icon: Icon(
-              Icons.exit_to_app, color: 
-              Colors.black,
+              Icons.exit_to_app, 
+              color: Colors.black,
               ),
             onPressed: () {
           _authController.Logout(context);

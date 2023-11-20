@@ -1,5 +1,4 @@
 
-import 'package:clothing_store_app/app/modules/register/views/login_view.dart';
 import 'package:clothing_store_app/app/modules/register/views/register_view.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -7,13 +6,24 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_rx/src/rx_types/rx_types.dart';
 import 'package:get/get_state_manager/src/simple/get_controllers.dart';
+// import 'package:shared_preferences/shared_preferences.dart';
 import '../../../routes/app_pages.dart';
 
 class AuthController extends GetxController {
   final FirebaseAuth _auth = FirebaseAuth.instance;
+  //final SharedPreferences _prefs = Get.find<SharedPreferences>();
 
   RxBool isLoading = false.obs;
   RxBool isLoggedIn = false.obs;
+
+  // @override
+  // void onInit() {
+  //   super.onInit();
+  //   checkLoginStatus(); // Cek status login saat controller diinisialisasi
+  // }
+  // Future<void> checkLoginStatus() async {
+  //   isLoggedIn.value = _prefs.containsKey('user_token');
+  // }
 
   Future<void> registerUser(String email, String password) async {
     try {
@@ -34,53 +44,60 @@ class AuthController extends GetxController {
     }
   }
 
-  Future<void> loginUser(String email, String password) async {
-    try {
-      isLoading.value = true;
-      await _auth.signInWithEmailAndPassword(
-        email: email,
-        password: password,
-      );
-
-      isLoggedIn.value = true;
-
-      Get.snackbar('Success', 'Login successful',
-        backgroundColor: Colors.green);
-      } catch (error) {
-      Get.snackbar('Error', 'Login failed: $error',
-        backgroundColor: Colors.red);
-      } finally {
-        isLoading.value = false;
-      }
-    }
-
-    Future<void> Logout (BuildContext context) async {
-    return showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: Text("Konfirmasi"),
-          content: Text("Apakah Anda yakin ingin keluar?"),
-          actions: [
-            TextButton(
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-              child: Text("Batal"),
-            ),
-            TextButton(
-              onPressed: () { 
-                Get.find<AuthController>().Logout(context);
-                Navigator.of(context).pop();
-                Get.offNamed(Routes.LOGIN);
-              },
-              child: Text("Keluar"),
-            ),
-          ],
-        );
-      },
+ Future<void> loginUser(String email, String password) async {
+  try {
+    isLoading.value = true;
+    await _auth.signInWithEmailAndPassword(
+      email: email,
+      password: password,
     );
+
+    // _prefs.setString('user_token', _auth.currentUser!.uid);
+    isLoggedIn.value = true;
+
+    Get.snackbar('Success', 'Login successful',
+      backgroundColor: Colors.green);
+      // Get.offAllNamed('/homepage');
+  } catch (error) {
+    Get.snackbar('Error', 'Login failed: $error',
+      backgroundColor: Colors.red);
+  } finally {
+    isLoading.value = false;
   }
+}
+
+
+Future<void> Logout (BuildContext context) async {
+  return showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return AlertDialog(
+        title: Text("Konfirmasi"),
+        content: Text("Apakah Anda yakin ingin keluar?"),
+        actions: [
+          TextButton(
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+            child: Text("Batal"),
+          ),
+          TextButton(
+            onPressed: () { 
+              Get.find<AuthController>().Logout(context);
+              Navigator.of(context).pop();
+              // Pastikan untuk mengatur isLoggedIn menjadi false saat logout
+              Get.find<AuthController>().isLoggedIn.value = false;
+              Get.offNamed(Routes.LOGIN);
+            },
+            child: Text("Keluar"),
+          ),
+        ],
+      );
+    },
+  );
+}
+
+  
 }
 
 

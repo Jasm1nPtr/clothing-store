@@ -50,7 +50,7 @@ class HomePage extends GetView<HomePage> {
                   size: 30,
                 ),
                 onPressed: () { 
-                Get.toNamed(Routes.REGISTER);    
+                Get.toNamed(Routes.LOGIN);    
             },
               ),
               title: Row(
