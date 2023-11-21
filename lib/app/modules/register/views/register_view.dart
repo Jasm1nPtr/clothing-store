@@ -67,7 +67,7 @@ super.dispose();
                       borderRadius: BorderRadius.circular(12,)
                     ),
                     focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.orange),
+                      borderSide: BorderSide(color: Colors.black),
                       borderRadius: BorderRadius.circular(12)
                     ),
                     hintText: 'Enter your email address',
@@ -90,7 +90,7 @@ super.dispose();
                       borderRadius: BorderRadius.circular(12,)
                     ),
                     focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.orange),
+                      borderSide: BorderSide(color: Colors.black),
                       borderRadius: BorderRadius.circular(12)
                     ),
                     hintText: 'Enter your password',
@@ -218,7 +218,7 @@ super.dispose();
                     child: Text(
                       'Log In',
                       style: TextStyle(
-                      color: Colors.orange,
+                      color: Colors.blue,
                        ),
                       ),
                     ),

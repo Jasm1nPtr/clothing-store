@@ -67,7 +67,7 @@ class _LoginViewState extends State<LoginView> {
                       borderRadius: BorderRadius.circular(12,)
                     ),
                     focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.orange),
+                      borderSide: BorderSide(color: Colors.black),
                       borderRadius: BorderRadius.circular(12)
                     ),
                     hintText: 'Enter your email address',
@@ -90,7 +90,7 @@ class _LoginViewState extends State<LoginView> {
                       borderRadius: BorderRadius.circular(12,)
                     ),
                     focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.orange),
+                      borderSide: BorderSide(color: Colors.black),
                       borderRadius: BorderRadius.circular(12)
                     ),
                     hintText: 'Enter your password',
@@ -153,7 +153,7 @@ class _LoginViewState extends State<LoginView> {
                     child: Text(
                       ' Register Now',
                       style: TextStyle(
-                        color: Colors.orange,
+                        color: Colors.blue,
                         fontWeight: FontWeight.bold
                       ),
                     ),
