@@ -1,4 +1,5 @@
 import '../../../routes/app_pages.dart';
+// import '../../../widget/accountController.dart';
 import '../controllers/AuthController.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -15,6 +16,10 @@ class _RegisterViewState extends State<RegisterView> {
 final AuthController _authController = Get.put(AuthController());
 final TextEditingController _emailController = TextEditingController();
 final TextEditingController _passwordController = TextEditingController();
+// disini nanti tambahin buat name
+
+// APPWRITE
+// final AccountController _accountController = Get.find();
 
 @override
 void dispose() {
@@ -55,6 +60,28 @@ super.dispose();
                 ),
               ),
               SizedBox(height: 30.0),
+
+              //USERNAME TEXTFIELD
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 25.0),
+                child: TextField(
+                  controller: _emailController, // INI JGN LUPA DIGANTI PAKE NAME
+                  decoration: InputDecoration(
+                    enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.white),
+                      borderRadius: BorderRadius.circular(12,)
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.black),
+                      borderRadius: BorderRadius.circular(12)
+                    ),
+                    hintText: 'Enter your Username',
+                    fillColor: Colors.grey[200],
+                    filled: true
+                  ),
+                ),
+              ),
+              SizedBox(height: 20),
 
                 //EMAIL TEXTFIELD
               Padding(
@@ -108,10 +135,11 @@ super.dispose();
                         onPressed: _authController.isLoading.value
                           ? null
                           : () {
-                            _authController.registerUser(
-                              _emailController.text,
-                              _passwordController.text,
-                            );
+                            // _authController.registerUser(
+                            //   _emailController.text,
+                            //   _passwordController.text,
+                            //   _ini tambahin juga buat name 
+                           // );
                           },
                         style: ButtonStyle(
                           backgroundColor: MaterialStateProperty.all<Color>(Colors.black), 

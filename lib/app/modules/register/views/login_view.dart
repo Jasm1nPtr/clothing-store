@@ -108,8 +108,8 @@ class _LoginViewState extends State<LoginView> {
                       return ElevatedButton(
                         onPressed: _authController.isLoading.value
                           ? null
-                          : () {
-                            //  if (_emailController.text.isEmpty || _passwordController.text.isEmpty) {}
+                          : () 
+                          {
                           // Memanggil fungsi login
                             _authController.loginUser(
                             _emailController.text,
