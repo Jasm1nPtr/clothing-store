@@ -16,6 +16,7 @@ class _RegisterViewState extends State<RegisterView> {
 final AuthController _authController = Get.put(AuthController());
 final TextEditingController _emailController = TextEditingController();
 final TextEditingController _passwordController = TextEditingController();
+final TextEditingController _nameController = TextEditingController();
 // disini nanti tambahin buat name
 
 // APPWRITE
@@ -65,7 +66,7 @@ super.dispose();
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 25.0),
                 child: TextField(
-                  controller: _emailController, // INI JGN LUPA DIGANTI PAKE NAME
+                  controller: _nameController, // INI JGN LUPA DIGANTI PAKE NAME
                   decoration: InputDecoration(
                     enabledBorder: OutlineInputBorder(
                       borderSide: BorderSide(color: Colors.white),
@@ -135,11 +136,11 @@ super.dispose();
                         onPressed: _authController.isLoading.value
                           ? null
                           : () {
-                            // _authController.registerUser(
-                            //   _emailController.text,
-                            //   _passwordController.text,
-                            //   _ini tambahin juga buat name 
-                           // );
+                            _authController.registerUserAppwrite(
+                              _emailController.text,
+                              _passwordController.text,
+                              _nameController.text,
+                           );
                           },
                         style: ButtonStyle(
                           backgroundColor: MaterialStateProperty.all<Color>(Colors.black), 

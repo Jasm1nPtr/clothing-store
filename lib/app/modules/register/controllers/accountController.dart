@@ -12,28 +12,20 @@ class AccountController extends ClientController {
   // appwrite\\\
   account = Account(client);
   }
-  Future createAccount(Map map) async {
-    try {
+ Future createAccount(Map map) async {
+  try {
+    if (account != null) {
       final result = await account!.create(
         userId: map['userId'],
         email: map['email'],
         password: map['password'],
         name: map['name'],
-        );
-        print("AccountController:: createAccount $result");
-        } catch (error) {
-          Get.defaultDialog(
-            title: "Error Account",
-            titlePadding: const EdgeInsets.only(top: 15, bottom: 5),
-            titleStyle: Get.context?.theme.textTheme.titleLarge,
-            content: Text(
-              "$error",
-              style: Get.context?.theme.textTheme.bodyMedium,
-              textAlign: TextAlign.center,
-            ),
-            contentPadding: const EdgeInsets.only(top: 5, left: 15, right: 15),
-            );
-          }
+      );
+      print("AccountController:: createAccount $result");
+    } else {
+      print("Error: Account is null");
+    }
+  } catch (error) {print("Error: $error");
         }
 
         // SIGN IN
@@ -58,4 +50,5 @@ class AccountController extends ClientController {
       );
     }
   }
+}
 }

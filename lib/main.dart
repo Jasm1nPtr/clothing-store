@@ -7,6 +7,7 @@ import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'app/widget/notification_handler.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
+
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
