@@ -1,14 +1,15 @@
-
 import 'package:get/get.dart';
-import '../modules/product_api/views/product.dart';
-import '../modules/register/bindings/login_binding.dart';
-import '../modules/register/views/register_view.dart';
-import '../modules/register/views/login_view.dart';
+import '../modules/Shopping_chart/bindings/shopping_chart_binding.dart';
+import '../modules/Shopping_chart/views/shopping_cart_view.dart';
 import '../modules/homepage/bindings/homepage_binding.dart';
 import '../modules/homepage/views/homepage_view.dart';
+import '../modules/product_api/bindings/api_service_binding.dart';
+import '../modules/product_api/views/product.dart';
 import '../modules/profilepage/bindings/profilepage_binding.dart';
 import '../modules/profilepage/views/profilepage_view.dart';
-import '../modules/product_api/bindings/api_service_binding.dart';
+import '../modules/register/bindings/login_binding.dart';
+import '../modules/register/views/login_view.dart';
+import '../modules/register/views/register_view.dart';
 
 part 'app_routes.dart';
 
@@ -42,6 +43,11 @@ class AppPages {
       name: _Paths.PRODUCT,
       page: () => Product(),
       binding: ProductBinding(),
+    ),
+    GetPage(
+      name: _Paths.SHOPPING_CHART,
+      page: () => ShoppingCartView(),
+      binding: ShoppingChartBinding(),
     ),
   ];
 }

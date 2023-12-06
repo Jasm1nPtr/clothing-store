@@ -2,8 +2,9 @@
 import 'package:appwrite/appwrite.dart';
 import 'package:get/get.dart';
 
+ Client client =Client();
 class ClientController extends GetxController {
-  Client client =Client();
+ 
 
   @override
   void onInit(){

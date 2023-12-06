@@ -1,15 +1,25 @@
+import 'dart:math';
+
 import 'package:appwrite/appwrite.dart';
 import 'package:clothing_store_app/app/modules/register/views/login_view.dart';
-import 'package:clothing_store_app/app/modules/register/views/register_view.dart';
+// import 'package:clothing_store_app/app/modules/register/views/register_view.dart';
 import 'package:clothing_store_app/app/modules/register/controllers/accountController.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_rx/src/rx_types/rx_types.dart';
-import 'package:get/get_state_manager/src/simple/get_controllers.dart';
+// import 'package:get/get_state_manager/src/simple/get_controllers.dart';
 import '../../../routes/app_pages.dart';
 import '../../../widget/clientController.dart';
+
+String generateRandomString() {
+  const characters =
+      'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789._-';
+  final random = Random();
+  return List.generate(
+      36, (index) => characters[random.nextInt(characters.length)]).join();
+}
 
 class AuthController extends ClientController {
   final FirebaseAuth _auth = FirebaseAuth.instance;

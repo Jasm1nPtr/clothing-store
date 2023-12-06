@@ -142,29 +142,26 @@ class _LoginViewState extends State<LoginView> {
           SizedBox(height: 10),
 
                 // REGISTER 
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text('Not a member?'),
-                      TextButton(
-                      onPressed: () {
-                      Get.offNamed(Routes.REGISTER);
-                    },
-                    child: Text(
-                      ' Register Now',
-                      style: TextStyle(
-                        color: Colors.blue,
-                        fontWeight: FontWeight.bold
-                      ),
-                    ),
+           Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text('Not a member?'),
+                TextButton(
+                  onPressed: () {
+                    Get.offNamed(Routes.REGISTER);
+                  },
+                  child: Text(
+                    ' Register Now',
+                    style: TextStyle(
+                        color: Colors.blue, fontWeight: FontWeight.bold),
                   ),
-                  ],
-                )
+                ),
               ],
-            ),
-          )
-        )
-      ),
+            )
+          ],
+        ),
+      ))),
     );
   }
 }
+

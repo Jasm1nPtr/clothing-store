@@ -42,6 +42,7 @@ class Navbar extends StatelessWidget {
             color: currentIndex == 2 ? Colors.white : Colors.grey[400]
             ), 
             onPressed: () {
+              Get.toNamed(Routes.SHOPPING_CHART);
             },
           ),
           IconButton(

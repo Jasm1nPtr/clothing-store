@@ -1,7 +1,7 @@
 import 'package:appwrite/appwrite.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
-import 'clientController.dart';
+import '../../../widget/clientController.dart';
 
 class DatabaseController extends ClientController {
   Databases? databases;
@@ -16,14 +16,15 @@ class DatabaseController extends ClientController {
   Future storeUserName(Map map) async {
     try {
       final result = await databases!.createDocument(
-        databaseId: "65664c927c83b5166128",
+        databaseId: "656763461d62a52a2dfa",
         documentId: ID.unique(),
-        collectionId: "65664cae5a588dcdce01",
+        collectionId: "65676351ab0ef19bc9c3",
         data: map,
         permissions: [
-          Permission.read(Role.user("65664f2e673d081da3f0")),
-          Permission.update(Role.user("65664f2e673d081da3f0")),
-          Permission.delete(Role.user("65664f2e673d081da3f0")),
+          Permission.create(Role.user("65675cf8412aba191688")),
+          Permission.read(Role.user("65675cf8412aba191688")),
+          Permission.update(Role.user("65675cf8412aba191688")),
+          Permission.delete(Role.user("65675cf8412aba191688")),
         ],
       );
       print("DatabaseController:: storeUserName $result");
