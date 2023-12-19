@@ -5,9 +5,10 @@ import 'package:image_picker/image_picker.dart';
 
 class ProfilepageController extends GetxController {
   ImagePicker imagePicker = ImagePicker();
+  ProfilepageController({required this.imagePicker});
 
-  XFile? pickedImage = null;
-  Uint8List? upIm = null;
+  XFile? pickedImage;
+  Uint8List? upIm;
 
   void resetImage() {
     pickedImage = null;

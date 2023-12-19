@@ -11,16 +11,15 @@ class ProfilepageView extends StatefulWidget {
   ProfilepageView({Key? key}) : super(key: key);
 
   @override
-  State <ProfilepageView> createState() => _ProfilepageView();
+  State<ProfilepageView> createState() => _ProfilepageView();
 }
 
 class _ProfilepageView extends State<ProfilepageView> {
-
-final AuthController _authController = Get.put(AuthController());
+  final AuthController _authController = Get.put(AuthController());
 
   @override
   Widget build(BuildContext context) {
-    Get.lazyPut(() => ProfilepageController());
+    //Get.lazyPut(() => ProfilepageController(imagePicker: ImagePicker()));
 
     return Scaffold(
       appBar: AppBar(
@@ -28,31 +27,30 @@ final AuthController _authController = Get.put(AuthController());
         backgroundColor: Colors.white,
         leading: IconButton(
           icon: Icon(
-          Icons.chevron_left,
-          color: Colors.black,
-          size: 30,
-        ),
-        onPressed: () { 
-        Get.toNamed(Routes.HOMEPAGE);    
-        },
-      ),
-        title: Text(
-          'Profile', 
-          style: TextStyle(color: Colors.black),
+            Icons.chevron_left,
+            color: Colors.black,
+            size: 30,
           ),
+          onPressed: () {
+            Get.toNamed(Routes.HOMEPAGE);
+          },
+        ),
+        title: Text(
+          'Profile',
+          style: TextStyle(color: Colors.black),
+        ),
         actions: [
           IconButton(
             icon: Icon(
-              Icons.exit_to_app, 
+              Icons.exit_to_app,
               color: Colors.black,
-              ),
+            ),
             onPressed: () {
-          _authController.Logout(context);
-          },
-        ),
-      ],
-    ),
-
+              _authController.Logout(context);
+            },
+          ),
+        ],
+      ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -75,8 +73,8 @@ final AuthController _authController = Get.put(AuthController());
                 ),
                 Positioned(
                   child: IconButton(
-                    onPressed: () => 
-                    Get.find<ProfilepageController>().selectImage(ImageSource.camera),
+                    onPressed: () => Get.find<ProfilepageController>()
+                        .selectImage(ImageSource.camera),
                     icon: const Icon(Icons.add_a_photo),
                   ),
                   bottom: -10,
@@ -84,8 +82,8 @@ final AuthController _authController = Get.put(AuthController());
                 ),
                 Positioned(
                   child: IconButton(
-                    onPressed: () =>
-                    Get.find<ProfilepageController>().selectImage(ImageSource.gallery),
+                    onPressed: () => Get.find<ProfilepageController>()
+                        .selectImage(ImageSource.gallery),
                     icon: const Icon(Icons.add),
                   ),
                   bottom: -10,

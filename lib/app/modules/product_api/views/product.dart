@@ -3,9 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../routes/app_pages.dart';
 import '../controllers/product_controller.dart';
+import 'package:http/http.dart' as http;
 
 class Product extends StatelessWidget {
-  final ProductController productsController = Get.put(ProductController());
+  final ProductController productsController =
+      Get.put(ProductController(httpClient: http.Client()));
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +18,7 @@ class Product extends StatelessWidget {
         child: Column(
           children: [
             _buildTop(),
-             Expanded(
+            Expanded(
               child: Obx(
                 () {
                   if (productsController.loading.value) {
@@ -26,13 +28,19 @@ class Product extends StatelessWidget {
                       padding: EdgeInsets.only(top: 16),
                       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                         crossAxisCount: 2,
-                       childAspectRatio: 0.7,
+                        childAspectRatio: 0.7,
                       ),
                       itemCount: productsController.products.length,
                       itemBuilder: (BuildContext context, int index) {
-                        return _buildProductCard(productsController.products[index]);
+                        return _buildProductCard(
+                            productsController.products[index]);
                       },
                     );
+                  }
+                  if (productsController.error.value != '') {
+                    return Center(
+                        child:
+                            Text("Error: ${productsController.error.value}"));
                   } else {
                     return _buildProductsList();
                   }
@@ -46,57 +54,57 @@ class Product extends StatelessWidget {
     );
   }
 
-Widget _buildProductCard(Map<String, dynamic> product) {
-  return Card(
-    elevation: 4.0,
-    child: Container(
-      height: 100,
-      padding: EdgeInsets.all(16),
-      margin: const EdgeInsets.only(bottom: 16.0),
-      child: Column(
-        children: [
-          Container(
-            height: 100,
-            width: 100,
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                image: NetworkImage(product["image"]),
-                fit: BoxFit.fill,
+  Widget _buildProductCard(Map<String, dynamic> product) {
+    return Card(
+      elevation: 4.0,
+      child: Container(
+        height: 100,
+        padding: EdgeInsets.all(16),
+        margin: const EdgeInsets.only(bottom: 16.0),
+        child: Column(
+          children: [
+            Container(
+              height: 100,
+              width: 100,
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                  image: NetworkImage(product["image"]),
+                  fit: BoxFit.fill,
+                ),
               ),
             ),
-          ),
-          SizedBox(height: 15),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                product["title"],
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
+            SizedBox(height: 15),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  product["title"],
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                  ),
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
                 ),
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
-              ),
-              Text(
-                product["description"],
-                maxLines: 2,
-                overflow: TextOverflow.ellipsis,
-              ),
-              Text(
-                "\$${product["price"]}",
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
+                Text(
+                  product["description"],
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
                 ),
-              ),
-            ],
-          ),
-        ],
+                Text(
+                  "\$${product["price"]}",
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ],
+            ),
+          ],
+        ),
       ),
-    ),
-  );
-}
+    );
+  }
 
-   ListView _buildProductsList() {
+  ListView _buildProductsList() {
     return ListView.builder(
       itemCount: productsController.products.length,
       padding: EdgeInsets.only(top: 16),
@@ -198,11 +206,11 @@ Widget _buildProductCard(Map<String, dynamic> product) {
           Icons.chevron_left,
           color: Colors.black,
           size: 30,
-          ),
-        onPressed: () { 
-        Get.toNamed(Routes.HOMEPAGE);    
-            },
-              ),
+        ),
+        onPressed: () {
+          Get.toNamed(Routes.HOMEPAGE);
+        },
+      ),
       elevation: 0,
       title: Text(
         "Shop Here",

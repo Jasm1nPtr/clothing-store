@@ -3,12 +3,17 @@ import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 
 class ProductController extends GetxController {
-  ProductsRepository productsRepository = ProductsRepository();
+  final http.Client httpClient;
+  late ProductsRepository productsRepository;
+
   RxBool loading = false.obs;
   RxList<dynamic> products = <dynamic>[].obs;
   RxBool showGrid = false.obs;
+  RxString error = ''.obs;
 
-  ProductController() {
+  // Update constructor to accept http.Client
+  ProductController({required this.httpClient}) {
+    productsRepository = ProductsRepository(httpClient: httpClient);
     loadProductsFromRepo();
   }
 
@@ -19,6 +24,13 @@ class ProductController extends GetxController {
       products.assignAll(productsData);
     } catch (e) {
       print("Error loading products: $e");
+
+      // Check if the error is of type http.ClientException
+      if (e is http.ClientException) {
+        error('Failed to connect to the API');
+      } else {
+        error('Failed to load products');
+      }
     }
     loading(false);
   }
@@ -30,10 +42,14 @@ class ProductController extends GetxController {
 
 class ProductsRepository {
   final String apiUrl = "https://fakestoreapi.com/products";
+  final http.Client httpClient;
+
+  // Update constructor to accept http.Client
+  ProductsRepository({required this.httpClient});
 
   Future<List<dynamic>> loadProductsFromApi() async {
     try {
-      final response = await http.get(Uri.parse(apiUrl));
+      final response = await httpClient.get(Uri.parse(apiUrl));
 
       if (response.statusCode == 200) {
         return json.decode(response.body);
